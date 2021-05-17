@@ -1,5 +1,0 @@
----
-title: "Method&results"
-output: html_document
----
-methods&reults
