@@ -1,3 +1,0 @@
-- text: "Introduction"
-  href: introduction.html
-  

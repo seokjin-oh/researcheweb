@@ -1,2 +1,5 @@
-- text: "Method & Results"
-  href: method&results
+---
+title: "Method&results"
+output: html_document
+---
+methods&reults

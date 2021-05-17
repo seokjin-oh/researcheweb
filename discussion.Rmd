@@ -1,2 +1,6 @@
-- text: "Discussion"
-  href: discussion
+---
+title: "discussion"
+output: html_document
+---
+
+discussion
