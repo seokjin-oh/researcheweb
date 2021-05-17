@@ -9,7 +9,7 @@ navbar:
     - text: "Introduction"
       href: introduction.html
     - text: "Methods&results"
-      href: methods&results.html
+      href: method&results.html
     - text: "Discussion"
       href: discussion.html
    
