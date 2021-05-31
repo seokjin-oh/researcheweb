@@ -1,0 +1,127 @@
+./download/partdb.xlsx
+
+```{r}
+ids <- c("hayleykim97", 
+         "th-kim310",
+         "Lelp27",
+         "aputron",
+         "gpemelianov",
+         "yoo-bh",
+         "seokjin-oh",
+         "treebird19",
+         "jinjulee119"
+         )
+destdir <- "download/"
+
+# https://github.com/TH-Kim310/researcheweb/blob/main/download/partdb.xlsx
+
+for(i in 1:length(ids)){
+  url <-  paste0("https://github.com/", ids[i], "/", "researcheweb", "/raw/main/", destdir, "partdb.xlsx")
+  destfile <- paste0(destdir, ids[i], "_partdb.xlsx")
+  tempfile <- paste0(destdir, "temp_", ids[i], "_partdb.xlsx")
+  
+  
+  ## check the rules 
+  ## ===============================================
+  flag <- TRUE
+  try(download.file(url, tempfile, quiet = TRUE), silent=TRUE)
+  #tryCatch(download.file(url, tempfile, quiet = TRUE), error=function(e){})
+  if(!file.exists(tempfile)){
+    print(paste0(i, " ID:", ids[i], " No excel file\n"))
+    flush.console()
+  }else{
+    tmp <- read_excel(tempfile, sheet = 1, skip = 0, col_names = T)
+    igem_cols <- c("id", "team_name", "project", "year", "wiki")
+    if(length(names(tmp))==length(igem_cols)){
+      if(!isTRUE(all.equal(names(tmp), igem_cols))){
+        print(paste(i, ids[i], " check column names in the igem_team sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+      ## check id type
+      if(class(tmp$id)!="character"){
+        print(paste(i, ids[i], " check id type as character in the igem_team sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+    }else{
+      print(paste(i, ids[i], " check the number of columns in the igem_team sheet"))
+      flush.console()
+      flag <- FALSE
+    }
+    
+    tmp <- read_excel(tempfile, sheet = 2, skip = 0, col_names = T)
+    igem_cols <- c("id", "BBid", "type", "link", "backbone", "device_id", "team_id", "user")
+    if(length(names(tmp))==length(igem_cols)){
+      if(!isTRUE(all.equal(names(tmp), igem_cols))){
+        print(paste(i, ids[i], " check column names in the igem_part sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+      ## check id type
+      if(class(tmp$id)!="character"){
+        print(paste(i, ids[i], " check id type as character in the igem_part sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+    }else{
+      print(paste(i, ids[i], " check the number of columns in the igem_part sheet"))
+      flush.console()
+      flag <- FALSE
+    }
+    
+    tmp <- read_excel(tempfile, sheet = 3, skip = 0, col_names = T)
+    igem_cols <- c("id", "device_name", "part_combination")
+    if(length(names(tmp))==length(igem_cols)){
+      if(!isTRUE(all.equal(names(tmp), igem_cols))){
+        print(paste(i, ids[i], " check column names in the igem_device sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+      ## check id type
+      if(class(tmp$id)!="character"){
+        print(paste(i, ids[i], " check id type as character in the igem_device sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+    }else{
+      print(paste(i, ids[i], " check the number of columns in the igem_device sheet"))
+      flush.console()
+      flag <- FALSE
+    }
+    
+    tmp <- read_excel(tempfile, sheet = 4, skip = 0, col_names = T)
+    igem_cols <- c("id", "strain", "indc", "conc", "concunit", "value", "valunit", "incubhr", "incubtemp", "device_id", "link")
+    if(length(names(tmp))==length(igem_cols)){
+      if(!isTRUE(all.equal(names(tmp), igem_cols))){
+        cat(i, ids[i], " check column names in the igem_obs sheet\n")
+        flush.console()
+        flag <- FALSE
+      }
+      ## check id type
+      if(class(tmp$id)!="character"){
+        print(paste(i, ids[i], " check id type as character in the igem_obs sheet"))
+        flush.console()
+        flag <- FALSE
+      }
+    }else{
+      print(paste(i, ids[i], " check the number of columns in the igem_obs sheet"))
+      flush.console()
+      flag <- FALSE
+    }
+    
+    if(flag){
+      try(download.file(url, destfile, quiet = TRUE))
+      cat(i, ids[i], " ........... OK\n");flush.console()
+    }
+    file.remove(tempfile)
+  }
+  
+  
+  ## ===============================================
+  cat("\n");flush.console()
+  
+  
+}
+```
+

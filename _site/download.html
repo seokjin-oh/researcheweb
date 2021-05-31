@@ -11,7 +11,7 @@
 
 
 
-<title>My ResearchE Class Website</title>
+<title>download.utf8</title>
 
 <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -268,12 +268,82 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">My ResearchE Class Website</h1>
 
 </div>
 
 
-<p>Hello, Website!</p>
+<p>library(tidyverse) library(readxl)</p>
+<p>destdir &lt;- “download/” filenames &lt;- dir(path = destdir, pattern = "*.xlsx“) full_filenames &lt;- paste0(destdir,”/", filenames) sapply(full_filenames, file.remove)</p>
+<p>ids &lt;- c(“hayleykim97”, “th-kim310”, “Lelp27”, “aputron”, “gpemelianov”, “yoo-bh”, “seokjin-oh”, “treebird19”, “jinjulee119” ) destdir &lt;- “download/”</p>
+<p>for(i in 1:length(ids)){ url &lt;- paste0(“<a href="https://github.com/" class="uri">https://github.com/</a>”, ids[i], “/”, “researcheweb”, “/raw/main/”, destdir, “partdb.xlsx”) destfile &lt;- paste0(destdir, ids[i], “<em>partdb.xlsx") tempfile &lt;- paste0(destdir, "temp</em>”, ids[i], "_partdb.xlsx")</p>
+<p>## check the rules ## =============================================== flag &lt;- TRUE try(download.file(url, tempfile, quiet = TRUE), silent=TRUE) #tryCatch(download.file(url, tempfile, quiet = TRUE), error=function(e){}) if(!file.exists(tempfile)){ print(paste0(i, " ID:“, ids[i],” No excel file“)) flush.console() }else{ tmp &lt;- read_excel(tempfile, sheet = 1, skip = 0, col_names = T) igem_cols &lt;- c(”id“,”team_name“,”project“,”year“,”wiki“) if(length(names(tmp))==length(igem_cols)){ if(!isTRUE(all.equal(names(tmp), igem_cols))){ print(paste(i, ids[i],” check column names in the igem_team sheet“)) flush.console() flag &lt;- FALSE } ## check id type if(class(tmp$id)!=”character“){ print(paste(i, ids[i],” check id type as character in the igem_team sheet“)) flush.console() flag &lt;- FALSE } }else{ print(paste(i, ids[i],” check the number of columns in the igem_team sheet")) flush.console() flag &lt;- FALSE }</p>
+<pre><code>tmp &lt;- read_excel(tempfile, sheet = 2, skip = 0, col_names = T)
+igem_cols &lt;- c(&quot;id&quot;, &quot;BBid&quot;, &quot;type&quot;, &quot;link&quot;, &quot;backbone&quot;, &quot;device_id&quot;, &quot;team_id&quot;, &quot;user&quot;)
+if(length(names(tmp))==length(igem_cols)){
+  if(!isTRUE(all.equal(names(tmp), igem_cols))){
+    print(paste(i, ids[i], &quot; check column names in the igem_part sheet&quot;))
+    flush.console()
+    flag &lt;- FALSE
+  }
+  ## check id type
+  if(class(tmp$id)!=&quot;character&quot;){
+    print(paste(i, ids[i], &quot; check id type as character in the igem_part sheet&quot;))
+    flush.console()
+    flag &lt;- FALSE
+  }
+}else{
+  print(paste(i, ids[i], &quot; check the number of columns in the igem_part sheet&quot;))
+  flush.console()
+  flag &lt;- FALSE
+}
+
+tmp &lt;- read_excel(tempfile, sheet = 3, skip = 0, col_names = T)
+igem_cols &lt;- c(&quot;id&quot;, &quot;device_name&quot;, &quot;part_combination&quot;)
+if(length(names(tmp))==length(igem_cols)){
+  if(!isTRUE(all.equal(names(tmp), igem_cols))){
+    print(paste(i, ids[i], &quot; check column names in the igem_device sheet&quot;))
+    flush.console()
+    flag &lt;- FALSE
+  }
+  ## check id type
+  if(class(tmp$id)!=&quot;character&quot;){
+    print(paste(i, ids[i], &quot; check id type as character in the igem_device sheet&quot;))
+    flush.console()
+    flag &lt;- FALSE
+  }
+}else{
+  print(paste(i, ids[i], &quot; check the number of columns in the igem_device sheet&quot;))
+  flush.console()
+  flag &lt;- FALSE
+}
+
+tmp &lt;- read_excel(tempfile, sheet = 4, skip = 0, col_names = T)
+igem_cols &lt;- c(&quot;id&quot;, &quot;strain&quot;, &quot;indc&quot;, &quot;conc&quot;, &quot;concunit&quot;, &quot;value&quot;, &quot;valunit&quot;, &quot;incubhr&quot;, &quot;incubtemp&quot;, &quot;device_id&quot;, &quot;link&quot;)
+if(length(names(tmp))==length(igem_cols)){
+  if(!isTRUE(all.equal(names(tmp), igem_cols))){
+    cat(i, ids[i], &quot; check column names in the igem_obs sheet\n&quot;)
+    flush.console()
+    flag &lt;- FALSE
+  }
+  ## check id type
+  if(class(tmp$id)!=&quot;character&quot;){
+    print(paste(i, ids[i], &quot; check id type as character in the igem_obs sheet&quot;))
+    flush.console()
+    flag &lt;- FALSE
+  }
+}else{
+  print(paste(i, ids[i], &quot; check the number of columns in the igem_obs sheet&quot;))
+  flush.console()
+  flag &lt;- FALSE
+}
+
+if(flag){
+  try(download.file(url, destfile, quiet = TRUE))
+  cat(i, ids[i], &quot; ........... OK\n&quot;);flush.console()
+}
+file.remove(tempfile)</code></pre>
+<p>}</p>
+<p>## =============================================== cat(“”);flush.console()</p>
 
 
 
