@@ -1,6 +1,15 @@
 ./download/partdb.xlsx
 
 ```{r}
+library(tidyverse)
+library(readxl)
+
+destdir <- "download/"
+filenames <- dir(path = destdir, pattern = "*.xlsx")
+full_filenames <- paste0(destdir, "/", filenames)
+sapply(full_filenames, file.remove)
+
+
 ids <- c("hayleykim97", 
          "th-kim310",
          "Lelp27",
